@@ -1,6 +1,6 @@
 #!/bin/bash
-# Starts logging scripts and kills them after a given amount of seconds
-# Then runs gnuplot scripts to create graph pngs
+# Starts logging scripts and kills them after siac reports that at least the
+# given number of blocks have been downloaded.
 
 # Get current time, used to name log files consistently
 # e.g. 2017-06-08_10:57:08
@@ -13,7 +13,14 @@ bash smem-logger.sh "$now" &
 bash disk-io-logger.sh "$now" &
 bash network-usage-logger.sh "$now" &
 
-sleep $1
+# Query siac for blockheight. Shutdown once at $1 blocks
+while true; do
+    blockheight=$(siac | awk '/Height/ { print $2 }')
+    if [ "$blockheight" -ge "$1" ]; then
+        break
+    fi
+    sleep 1
+done
 
 # Turn off all loggers
 pkill -f cpu-mem-logger.sh
