@@ -1,0 +1,34 @@
+set term png size 5000,1000
+set output result
+set grid
+
+set xtics nomirror
+set ytics nomirror
+
+set mxtics 2
+set mytics 2
+
+set style line 80 lt 0 lc rgb "#808080"
+
+set border 3 back ls 80
+set style line 81 lt 0 lc rgb "#808080" lw 0.5
+
+set grid xtics
+set grid ytics
+set grid mxtics
+set grid mytics
+
+set grid back ls 81
+
+set style line 1 lt 1 lc rgb "#A00000" lw 2 pt 7 ps 1.5
+set style line 2 lt 1 lc rgb "#00A000" lw 2 pt 11 ps 1.5
+
+set ylabel "KB / sec"
+
+set title "Siad Disk Reads/Writes"
+
+
+plot logfile u 0:1 w lp ls 1 t "Reads", \
+logfile u 0:2 w lp ls 3 t "Writes
+
+set output
