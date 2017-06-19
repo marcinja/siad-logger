@@ -21,25 +21,4 @@ pkill -f smem-logger.sh
 pkill -f disk-io-logger.sh
 pkill -f network-usage-logger.sh
 
-# Create plots
-echo "Creating plots for resource usage starting at $now ."
-
-cd ..
-# This is the logscripts directory
-parent_path="$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )"
-
-cd "$parent_path"/gnuplot-scripts
-
-gnuplot -e "logfile='${parent_path}/logs/smem-$now.log'; result='${parent_path}/graph-results/smem-graph-$now.png'" plot-smem.script
-
-gnuplot -e "logfile='${parent_path}/logs/network-io-$now.log'; result='${parent_path}/graph-results/network-usage-graph-$now.png'" plot-network-usage.script
-
-gnuplot -e "logfile='${parent_path}/logs/cpu-mem-$now.log'; result='${parent_path}/graph-results/mem-log-graph-$now.png'" plot-mem.script
-
-gnuplot -e "logfile='${parent_path}/logs/disk-io-$now.log'; result='${parent_path}/graph-results/disk-io-graph-$now.png'" plot-disk-io.script
-
-gnuplot -e "logfile='${parent_path}/logs/cpu-mem-$now.log'; result='${parent_path}/graph-results/cpu-log-graph-$now.png'" plot-cpu.script
-
-gnuplot -e "logfile='${parent_path}/logs/cpu-mem-$now.log'; result='${parent_path}/graph-results/cpu-mem-log-graph-$now.png'" plot-cpu-mem-together.script
-
-echo "Graph results completed."
+echo "Loggers shut down. Recored logs starting at: $now"
