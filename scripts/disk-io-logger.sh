@@ -11,5 +11,6 @@ touch "disk-io-$1.log"
 
 pid="$(pidof siad)"
 while true; do
-    iotop -k -b -d 1 -p "${pid}" | awk -v var="$pid" '/^ '"$pid"'/ { print $4,$6 }' >> "disk-io-$1.log"
+    iotop -k -b -d 1 -p "${pid}" | awk -v var="$pid" '/^ '"$pid"'/ { print $4,$6; fflush() }' >> disk-io-test3.log
+    sleep 1
 done

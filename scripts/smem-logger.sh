@@ -16,6 +16,6 @@ touch "smem-$1.log"
 
 pid="$(pidof siad)"
 while true; do
-    smem | grep "^ $pid" | awk '{ print $5,$6,$7 }' >> "smem-$1.log"
+    smem | awk '/^ '"$pid"'/ { print $5,$6,$7 >> "smem-'"$1"'.log" }'
     sleep 1
 done

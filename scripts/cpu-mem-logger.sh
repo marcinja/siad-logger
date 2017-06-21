@@ -11,5 +11,5 @@ touch "cpu-mem-$1.log"
 
 pid="$(pidof siad)"
 while true; do
-    top -b -d 1 -p "${pid}" | awk -v var="$pid" '/^ '"$pid"'/ { print $9,$10 }' >> "cpu-mem-$1.log"
+    top -b -d 1 -p "${pid}" | awk -v var="$pid" '/^ '"$pid"'/ { print $9,$10; fflush() }' >> "cpu-mem-$1.log"
 done
